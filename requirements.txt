@@ -1,0 +1,6 @@
+flask
+uuid
+flask_sqlalchemy
+pandas
+sqlalchemy
+
