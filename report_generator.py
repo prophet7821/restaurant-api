@@ -62,7 +62,6 @@ def generate_report() -> Dict[int, Dict[str, float]]:
     JOIN store_hours_utc ON store_hours_utc.store_id = store_status.store_id
     WHERE EXTRACT(DOW FROM store_status.timestamp_utc::timestamp) = store_hours_utc.day
     AND store_status.timestamp_utc::time BETWEEN store_hours_utc.start_time_utc AND store_hours_utc.end_time_utc
-    --AND store_status.timestamp_utc::timestamp >= NOW() - INTERVAL '1 week'
     )
 
 
@@ -94,16 +93,15 @@ ORDER BY store_id;
         if row.status == 'active':
             report[row.store_id]['uptime_last_hour'] = row.duration_last_hour_minutes if row.duration_last_hour_minutes else 0
             report[row.store_id]['uptime_last_day'] = (
-                row.duration_last_day_minutes if row.duration_last_day_minutes else 0) * 60
+                row.duration_last_day_minutes if row.duration_last_day_minutes else 0)/60
             report[row.store_id]['uptime_last_week'] = (
-                row.duration_last_week_minutes if row.duration_last_week_minutes else 0) * 60
+                row.duration_last_week_minutes if row.duration_last_week_minutes else 0)/60
         else:
             report[row.store_id]['downtime_last_hour'] = row.duration_last_hour_minutes if row.duration_last_hour_minutes else 0
             report[row.store_id]['downtime_last_day'] = (
-                row.duration_last_day_minutes if row.duration_last_day_minutes else 0) * 60
-
+                row.duration_last_day_minutes if row.duration_last_day_minutes else 0)/60
             report[row.store_id]['downtime_last_week'] = (
-                row.duration_last_week_minutes if row.duration_last_week_minutes else 0) * 60
+                row.duration_last_week_minutes if row.duration_last_week_minutes else 0) /60
 
     return report
 
