@@ -1,6 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
 
-
 #Here we have defined the models for the database
 
 db = SQLAlchemy()

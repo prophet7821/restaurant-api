@@ -16,9 +16,6 @@ report_status = {}
 report_data = {}
 reports = {}
 
-
-
-
 # This function will be resonsible for reading the csv file and storing the data in the database
 @app.route('/ingest_data', methods=['GET'])
 def ingest_data():
